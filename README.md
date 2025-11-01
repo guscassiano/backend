@@ -30,6 +30,18 @@ Acesse a documentação interativa:
 - Swagger UI: http://localhost:8000/docs
 
 
+## 🧪 Testes Automatizados
+
+Foi incrementado testes automatizados utilizando `pytest` e `TestClient` para garantir a integridade e o correto funcionamento dos endpoints.
+
+### Pré-requisitos
+
+Antes de rodar os testes, certifique-se de que as dependências de desenvolvimento estão instaladas:
+
+```bash
+uv pip install -e ".[dev]"
+```
+
 ## 📝 Endpoints
 
 | Método | Endpoint | Descrição |
