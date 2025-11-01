@@ -9,10 +9,7 @@ router = APIRouter(
     tags=["movies"]
 )
 
-@router.get("/", response_model=list[schemas.MovieBase])
-def get_movies(db: Session = Depends(get_db)):
-    movies = db.query(models.Movie).all()
-    return movies
+
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.MovieBase)
 def create_movie(movie: schemas.MovieCreate, db: Session = Depends(get_db)):
@@ -21,6 +18,11 @@ def create_movie(movie: schemas.MovieCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(db_movie)
     return db_movie
+
+@router.get("/", response_model=list[schemas.MovieBase])
+def get_movies(db: Session = Depends(get_db)):
+    movies = db.query(models.Movie).all()
+    return movies
 
 @router.get("/{movie_id}", response_model=schemas.MovieBase)
 def get_movie(movie_id: int, db: Session = Depends(get_db)):
