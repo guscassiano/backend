@@ -42,6 +42,20 @@ def update_movie(movie_id: int, movie_update: schemas.MovieCreate, db: Session =
     db.refresh(db_movie)
     return db_movie
 
+@router.patch("/{movie_id}", response_model=schemas.MovieBase)
+def patch_movie(movie_id: int, movie_update: schemas.MovieUpdate, db: Session = Depends(get_db)):
+    db_movie = db.query(models.Movie).filter(models.Movie.id == movie_id).first()
+    if db_movie is None:
+        raise HTTPException(status_code=404, detail="Movie not found")
+
+    update_data = movie_update.model_dump(exclude_unset=True)
+    for key, value in update_data.items():
+        setattr(db_movie, key, value)
+
+    db.commit()
+    db.refresh(db_movie)
+    return db_movie
+
 @router.delete("/{movie_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_movie(movie_id: int, db: Session = Depends(get_db)):
     del_movie = db.query(models.Movie).filter(models.Movie.id == movie_id).first()
