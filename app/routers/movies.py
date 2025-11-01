@@ -7,7 +7,9 @@ from ..schemas import movie as schemas
 router = APIRouter(prefix="/movies", tags=["movies"])
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED, response_model=schemas.MovieBase)
+@router.post(
+    "/", status_code=status.HTTP_201_CREATED, response_model=schemas.MovieResponse
+)
 def create_movie(movie: schemas.MovieCreate, db: Session = Depends(get_db)):
     db_movie = models.Movie(**movie.model_dump())
     db.add(db_movie)
@@ -16,13 +18,13 @@ def create_movie(movie: schemas.MovieCreate, db: Session = Depends(get_db)):
     return db_movie
 
 
-@router.get("/", response_model=list[schemas.MovieBase])
+@router.get("/", response_model=list[schemas.MovieResponse])
 def get_movies(db: Session = Depends(get_db)):
     movies = db.query(models.Movie).all()
     return movies
 
 
-@router.get("/{movie_id}", response_model=schemas.MovieBase)
+@router.get("/{movie_id}", response_model=schemas.MovieResponse)
 def get_movie(movie_id: int, db: Session = Depends(get_db)):
     movie = db.query(models.Movie).filter(models.Movie.id == movie_id).first()
     if movie is None:
@@ -30,7 +32,7 @@ def get_movie(movie_id: int, db: Session = Depends(get_db)):
     return movie
 
 
-@router.put("/{movie_id}", response_model=schemas.MovieBase)
+@router.put("/{movie_id}", response_model=schemas.MovieResponse)
 def update_movie(
     movie_id: int, movie_update: schemas.MovieCreate, db: Session = Depends(get_db)
 ):
@@ -46,7 +48,7 @@ def update_movie(
     return db_movie
 
 
-@router.patch("/{movie_id}", response_model=schemas.MovieBase)
+@router.patch("/{movie_id}", response_model=schemas.MovieResponse)
 def patch_movie(
     movie_id: int, movie_update: schemas.MovieUpdate, db: Session = Depends(get_db)
 ):
