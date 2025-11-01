@@ -32,7 +32,7 @@ Acesse a documentação interativa:
 
 ## 🧪 Testes Automatizados
 
-Foi incrementado testes automatizados utilizando `pytest` e `TestClient` para garantir a integridade e o correto funcionamento dos endpoints.
+Foi incrementado testes automatizados utilizando `pytest` e o `TestClient` do FastAPI para garantir a integridade e o funcionamento correto dos endpoints.
 
 ### Pré-requisitos
 
