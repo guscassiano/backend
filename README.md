@@ -48,7 +48,10 @@ Após a instalação as dependências de desenvolvimento executar:
 uv run pytest
 ```
 
-Observação: Certificar de ter instalado o geranciador de pacote uv para a execução local na máquina, para o Docker não é necessário.
+### ⚠️ Observação: 
+Certificar de ter instalado o gerenciador de pacote `uv` para a execução local na máquina.
+
+O instalador pode ser encontrado clicar neste [link](https://docs.astral.sh/uv/getting-started/installation/).
 
 
 ## ✨ Qualidade de Código e Padronização
